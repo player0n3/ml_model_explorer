@@ -95,228 +95,487 @@ st.set_page_config(
     }
 )
 
-# Custom CSS
-st.markdown("""
-<style>
-    /* Main Header */
-    .main-header {
-        font-size: 3.5rem;
-        font-weight: 700;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        text-align: center;
-        margin-bottom: 2rem;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-    }
-    
-    /* Sidebar Styling */
-    .css-1d391kg {
-        background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
-    }
-    
-    /* Metric Cards */
-    .metric-card {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        padding: 1.5rem;
-        border-radius: 1rem;
-        margin: 0.5rem 0;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        border: none;
-        transition: transform 0.3s ease;
-    }
-    
-    .metric-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-    }
-    
-    /* Model Cards */
-    .model-card {
-        background: white;
-        border: 2px solid #e0e0e0;
-        border-radius: 1rem;
-        padding: 1.5rem;
-        margin: 1rem 0;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        transition: all 0.3s ease;
-    }
-    
-    .model-card:hover {
-        border-color: #667eea;
-        box-shadow: 0 4px 20px rgba(102, 126, 234, 0.15);
-    }
-    
-    .best-model {
-        border-color: #28a745;
-        background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
-        box-shadow: 0 4px 20px rgba(40, 167, 69, 0.2);
-    }
-    
-    /* Tabs Styling */
-    .stTabs [data-baseweb="tab-list"] {
-        gap: 8px;
-        background: #f8f9fa;
-        border-radius: 0.5rem;
-        padding: 0.5rem;
-    }
-    
-    .stTabs [data-baseweb="tab"] {
-        border-radius: 0.5rem;
-        color: #6c757d;
-        background: transparent;
-        border: none;
-        padding: 0.75rem 1.5rem;
-        transition: all 0.3s ease;
-    }
-    
-    .stTabs [aria-selected="true"] {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        box-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
-    }
-    
-    /* Buttons */
-    .stButton > button {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        border: none;
-        border-radius: 0.5rem;
-        padding: 0.5rem 1.5rem;
-        font-weight: 600;
-        transition: all 0.3s ease;
-        box-shadow: 0 2px 10px rgba(102, 126, 234, 0.2);
-    }
-    
-    .stButton > button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-    }
-    
-    /* Success Messages */
-    .stSuccess {
-        background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
-        border: 1px solid #28a745;
-        border-radius: 0.5rem;
-        padding: 1rem;
-        color: #155724;
-    }
-    
-    /* Warning Messages */
-    .stWarning {
-        background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
-        border: 1px solid #ffc107;
-        border-radius: 0.5rem;
-        padding: 1rem;
-        color: #856404;
-    }
-    
-    /* Error Messages */
-    .stError {
-        background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
-        border: 1px solid #dc3545;
-        border-radius: 0.5rem;
-        padding: 1rem;
-        color: #721c24;
-    }
-    
-    /* Info Messages */
-    .stInfo {
-        background: linear-gradient(135deg, #d1ecf1 0%, #bee5eb 100%);
-        border: 1px solid #17a2b8;
-        border-radius: 0.5rem;
-        padding: 1rem;
-        color: #0c5460;
-    }
-    
-    /* Dataframe Styling */
-    .dataframe {
-        border-radius: 0.5rem;
-        overflow: hidden;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
-    
-    /* Progress Bar */
-    .stProgress > div > div > div {
-        background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
-    }
-    
-    /* File Uploader */
-    .stFileUploader > div {
-        border: 2px dashed #667eea;
-        border-radius: 0.5rem;
-        background: #f8f9fa;
-        transition: all 0.3s ease;
-    }
-    
-    .stFileUploader > div:hover {
-        border-color: #764ba2;
-        background: #f0f2ff;
-    }
-    
-    /* Selectbox */
-    .stSelectbox > div > div {
-        border-radius: 0.5rem;
-        border: 1px solid #e0e0e0;
-    }
-    
-    /* Multiselect */
-    .stMultiSelect > div > div {
-        border-radius: 0.5rem;
-        border: 1px solid #e0e0e0;
-    }
-    
-    /* Slider */
-    .stSlider > div > div > div {
-        background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
-    }
-    
-    /* Checkbox */
-    .stCheckbox > div > div {
-        border-radius: 0.25rem;
-    }
-    
-    /* Text Input */
-    .stTextInput > div > div > input {
-        border-radius: 0.5rem;
-        border: 1px solid #e0e0e0;
-    }
-    
-    /* Custom Background */
-    .main .block-container {
-        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-        padding: 2rem;
-        border-radius: 1rem;
-        margin: 1rem;
-    }
-    
-    /* Hide Streamlit Default Elements */
-    #MainMenu {visibility: hidden;}
-    footer {visibility: hidden;}
-    header {visibility: hidden;}
-    
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar {
-        width: 8px;
-    }
-    
-    ::-webkit-scrollbar-track {
-        background: #f1f1f1;
-        border-radius: 4px;
-    }
-    
-    ::-webkit-scrollbar-thumb {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        border-radius: 4px;
-    }
-    
-    ::-webkit-scrollbar-thumb:hover {
-        background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
-    }
-</style>
-""", unsafe_allow_html=True)
+# Custom CSS with Dark Mode Support
+def get_css(theme="light"):
+    """Get CSS based on theme."""
+    if theme == "dark":
+        return """
+        <style>
+            /* Dark Mode Styles */
+            .main {
+                background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+                color: #ffffff;
+            }
+            
+            /* Main Header */
+            .main-header {
+                font-size: 3.5rem;
+                font-weight: 700;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+                text-align: center;
+                margin-bottom: 2rem;
+                text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            }
+            
+            /* Sidebar Styling */
+            .css-1d391kg {
+                background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+                color: #ffffff;
+            }
+            
+            /* Metric Cards */
+            .metric-card {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                padding: 1.5rem;
+                border-radius: 1rem;
+                margin: 0.5rem 0;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+                border: none;
+                transition: transform 0.3s ease;
+            }
+            
+            .metric-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+            }
+            
+            /* Model Cards */
+            .model-card {
+                background: #2d3748;
+                border: 2px solid #4a5568;
+                border-radius: 1rem;
+                padding: 1.5rem;
+                margin: 1rem 0;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+                transition: all 0.3s ease;
+                color: #ffffff;
+            }
+            
+            .model-card:hover {
+                border-color: #667eea;
+                box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
+            }
+            
+            .best-model {
+                border-color: #48bb78;
+                background: linear-gradient(135deg, #2f855a 0%, #38a169 100%);
+                box-shadow: 0 4px 20px rgba(72, 187, 120, 0.3);
+            }
+            
+            /* Tabs Styling */
+            .stTabs [data-baseweb="tab-list"] {
+                gap: 8px;
+                background: #2d3748;
+                border-radius: 0.5rem;
+                padding: 0.5rem;
+            }
+            
+            .stTabs [data-baseweb="tab"] {
+                border-radius: 0.5rem;
+                color: #a0aec0;
+                background: transparent;
+                border: none;
+                padding: 0.75rem 1.5rem;
+                transition: all 0.3s ease;
+            }
+            
+            .stTabs [aria-selected="true"] {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                box-shadow: 0 2px 10px rgba(102, 126, 234, 0.4);
+            }
+            
+            /* Buttons */
+            .stButton > button {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                border: none;
+                border-radius: 0.5rem;
+                padding: 0.5rem 1.5rem;
+                font-weight: 600;
+                transition: all 0.3s ease;
+                box-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
+            }
+            
+            .stButton > button:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            }
+            
+            /* Success Messages */
+            .stSuccess {
+                background: linear-gradient(135deg, #2f855a 0%, #38a169 100%);
+                border: 1px solid #48bb78;
+                border-radius: 0.5rem;
+                padding: 1rem;
+                color: #ffffff;
+            }
+            
+            /* Warning Messages */
+            .stWarning {
+                background: linear-gradient(135deg, #d69e2e 0%, #ed8936 100%);
+                border: 1px solid #ed8936;
+                border-radius: 0.5rem;
+                padding: 1rem;
+                color: #ffffff;
+            }
+            
+            /* Error Messages */
+            .stError {
+                background: linear-gradient(135deg, #c53030 0%, #e53e3e 100%);
+                border: 1px solid #f56565;
+                border-radius: 0.5rem;
+                padding: 1rem;
+                color: #ffffff;
+            }
+            
+            /* Info Messages */
+            .stInfo {
+                background: linear-gradient(135deg, #3182ce 0%, #4299e1 100%);
+                border: 1px solid #63b3ed;
+                border-radius: 0.5rem;
+                padding: 1rem;
+                color: #ffffff;
+            }
+            
+            /* Dataframe Styling */
+            .dataframe {
+                border-radius: 0.5rem;
+                overflow: hidden;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+                background: #2d3748;
+                color: #ffffff;
+            }
+            
+            /* Progress Bar */
+            .stProgress > div > div > div {
+                background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            }
+            
+            /* File Uploader */
+            .stFileUploader > div {
+                border: 2px dashed #667eea;
+                border-radius: 0.5rem;
+                background: #2d3748;
+                transition: all 0.3s ease;
+            }
+            
+            .stFileUploader > div:hover {
+                border-color: #764ba2;
+                background: #4a5568;
+            }
+            
+            /* Selectbox */
+            .stSelectbox > div > div {
+                border-radius: 0.5rem;
+                border: 1px solid #4a5568;
+                background: #2d3748;
+                color: #ffffff;
+            }
+            
+            /* Multiselect */
+            .stMultiSelect > div > div {
+                border-radius: 0.5rem;
+                border: 1px solid #4a5568;
+                background: #2d3748;
+                color: #ffffff;
+            }
+            
+            /* Slider */
+            .stSlider > div > div > div {
+                background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            }
+            
+            /* Checkbox */
+            .stCheckbox > div > div {
+                border-radius: 0.25rem;
+                background: #2d3748;
+            }
+            
+            /* Text Input */
+            .stTextInput > div > div > input {
+                border-radius: 0.5rem;
+                border: 1px solid #4a5568;
+                background: #2d3748;
+                color: #ffffff;
+            }
+            
+            /* Custom Background */
+            .main .block-container {
+                background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+                padding: 2rem;
+                border-radius: 1rem;
+                margin: 1rem;
+                color: #ffffff;
+            }
+            
+            /* Hide Streamlit Default Elements */
+            #MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            header {visibility: hidden;}
+            
+            /* Custom Scrollbar */
+            ::-webkit-scrollbar {
+                width: 8px;
+            }
+            
+            ::-webkit-scrollbar-track {
+                background: #2d3748;
+                border-radius: 4px;
+            }
+            
+            ::-webkit-scrollbar-thumb {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                border-radius: 4px;
+            }
+            
+            ::-webkit-scrollbar-thumb:hover {
+                background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+            }
+            
+            /* Dark mode specific text colors */
+            p, h1, h2, h3, h4, h5, h6, span, div {
+                color: #ffffff !important;
+            }
+            
+            /* Dark mode for dataframes */
+            .stDataFrame {
+                background: #2d3748 !important;
+                color: #ffffff !important;
+            }
+            
+            /* Dark mode for plots */
+            .js-plotly-plot {
+                background: #2d3748 !important;
+            }
+        </style>
+        """
+    else:
+        return """
+        <style>
+            /* Light Mode Styles */
+            .main-header {
+                font-size: 3.5rem;
+                font-weight: 700;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+                text-align: center;
+                margin-bottom: 2rem;
+                text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            }
+            
+            /* Sidebar Styling */
+            .css-1d391kg {
+                background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
+            }
+            
+            /* Metric Cards */
+            .metric-card {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                padding: 1.5rem;
+                border-radius: 1rem;
+                margin: 0.5rem 0;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+                border: none;
+                transition: transform 0.3s ease;
+            }
+            
+            .metric-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            }
+            
+            /* Model Cards */
+            .model-card {
+                background: white;
+                border: 2px solid #e0e0e0;
+                border-radius: 1rem;
+                padding: 1.5rem;
+                margin: 1rem 0;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+                transition: all 0.3s ease;
+            }
+            
+            .model-card:hover {
+                border-color: #667eea;
+                box-shadow: 0 4px 20px rgba(102, 126, 234, 0.15);
+            }
+            
+            .best-model {
+                border-color: #28a745;
+                background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+                box-shadow: 0 4px 20px rgba(40, 167, 69, 0.2);
+            }
+            
+            /* Tabs Styling */
+            .stTabs [data-baseweb="tab-list"] {
+                gap: 8px;
+                background: #f8f9fa;
+                border-radius: 0.5rem;
+                padding: 0.5rem;
+            }
+            
+            .stTabs [data-baseweb="tab"] {
+                border-radius: 0.5rem;
+                color: #6c757d;
+                background: transparent;
+                border: none;
+                padding: 0.75rem 1.5rem;
+                transition: all 0.3s ease;
+            }
+            
+            .stTabs [aria-selected="true"] {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                box-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
+            }
+            
+            /* Buttons */
+            .stButton > button {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                border: none;
+                border-radius: 0.5rem;
+                padding: 0.5rem 1.5rem;
+                font-weight: 600;
+                transition: all 0.3s ease;
+                box-shadow: 0 2px 10px rgba(102, 126, 234, 0.2);
+            }
+            
+            .stButton > button:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            }
+            
+            /* Success Messages */
+            .stSuccess {
+                background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+                border: 1px solid #28a745;
+                border-radius: 0.5rem;
+                padding: 1rem;
+                color: #155724;
+            }
+            
+            /* Warning Messages */
+            .stWarning {
+                background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+                border: 1px solid #ffc107;
+                border-radius: 0.5rem;
+                padding: 1rem;
+                color: #856404;
+            }
+            
+            /* Error Messages */
+            .stError {
+                background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+                border: 1px solid #dc3545;
+                border-radius: 0.5rem;
+                padding: 1rem;
+                color: #721c24;
+            }
+            
+            /* Info Messages */
+            .stInfo {
+                background: linear-gradient(135deg, #d1ecf1 0%, #bee5eb 100%);
+                border: 1px solid #17a2b8;
+                border-radius: 0.5rem;
+                padding: 1rem;
+                color: #0c5460;
+            }
+            
+            /* Dataframe Styling */
+            .dataframe {
+                border-radius: 0.5rem;
+                overflow: hidden;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            }
+            
+            /* Progress Bar */
+            .stProgress > div > div > div {
+                background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            }
+            
+            /* File Uploader */
+            .stFileUploader > div {
+                border: 2px dashed #667eea;
+                border-radius: 0.5rem;
+                background: #f8f9fa;
+                transition: all 0.3s ease;
+            }
+            
+            .stFileUploader > div:hover {
+                border-color: #764ba2;
+                background: #f0f2ff;
+            }
+            
+            /* Selectbox */
+            .stSelectbox > div > div {
+                border-radius: 0.5rem;
+                border: 1px solid #e0e0e0;
+            }
+            
+            /* Multiselect */
+            .stMultiSelect > div > div {
+                border-radius: 0.5rem;
+                border: 1px solid #e0e0e0;
+            }
+            
+            /* Slider */
+            .stSlider > div > div > div {
+                background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            }
+            
+            /* Checkbox */
+            .stCheckbox > div > div {
+                border-radius: 0.25rem;
+            }
+            
+            /* Text Input */
+            .stTextInput > div > div > input {
+                border-radius: 0.5rem;
+                border: 1px solid #e0e0e0;
+            }
+            
+            /* Custom Background */
+            .main .block-container {
+                background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+                padding: 2rem;
+                border-radius: 1rem;
+                margin: 1rem;
+            }
+            
+            /* Hide Streamlit Default Elements */
+            #MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            header {visibility: hidden;}
+            
+            /* Custom Scrollbar */
+            ::-webkit-scrollbar {
+                width: 8px;
+            }
+            
+            ::-webkit-scrollbar-track {
+                background: #f1f1f1;
+                border-radius: 4px;
+            }
+            
+            ::-webkit-scrollbar-thumb {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                border-radius: 4px;
+            }
+            
+            ::-webkit-scrollbar-thumb:hover {
+                background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+            }
+        </style>
+        """
 
 # Initialize session state
 if 'data' not in st.session_state:
@@ -330,6 +589,36 @@ if 'feature_importance' not in st.session_state:
 
 def main():
     """Main function for the ML Model Explorer app."""
+    
+    # Initialize theme in session state
+    if 'theme' not in st.session_state:
+        st.session_state.theme = "light"
+    
+    # Dark mode toggle in sidebar
+    st.sidebar.markdown("""
+    <div style="text-align: center; padding: 1rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 1rem; margin-bottom: 1rem;">
+        <h3 style="color: white; margin: 0;">🎨 Theme</h3>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # Theme toggle
+    theme_options = {
+        "☀️ Light Mode": "light",
+        "🌙 Dark Mode": "dark"
+    }
+    
+    selected_theme = st.sidebar.selectbox(
+        "Choose Theme:",
+        list(theme_options.keys()),
+        index=0 if st.session_state.theme == "light" else 1,
+        key="theme_selector"
+    )
+    
+    # Update theme in session state
+    st.session_state.theme = theme_options[selected_theme]
+    
+    # Apply CSS based on theme
+    st.markdown(get_css(st.session_state.theme), unsafe_allow_html=True)
     
     # Header with enhanced styling
     st.markdown('<h1 class="main-header">🤖 ML Model Explorer</h1>', unsafe_allow_html=True)
@@ -564,6 +853,9 @@ def show_data_exploration(df):
         
         fig = px.bar(missing_df, x='Column', y='Missing Count', 
                     title='Missing Values by Column')
+        
+        # Apply theme
+        fig = apply_plot_theme(fig, st.session_state.theme)
         st.plotly_chart(fig, use_container_width=True)
     
     # Correlation analysis for numerical columns
@@ -578,6 +870,9 @@ def show_data_exploration(df):
                        title='Correlation Matrix',
                        color_continuous_scale='RdBu',
                        aspect='auto')
+        
+        # Apply theme
+        fig = apply_plot_theme(fig, st.session_state.theme)
         st.plotly_chart(fig, use_container_width=True)
         
         # Correlation pairs
@@ -1186,6 +1481,40 @@ def show_model_management():
                 st.session_state.loaded_model = model
             except Exception as e:
                 st.error(f"Error loading model: {str(e)}")
+
+def get_plot_theme(theme="light"):
+    """Get plot theme configuration based on app theme."""
+    if theme == "dark":
+        return {
+            'template': 'plotly_dark',
+            'paper_bgcolor': '#2d3748',
+            'plot_bgcolor': '#2d3748',
+            'font': {'color': '#ffffff'},
+            'xaxis': {'gridcolor': '#4a5568', 'linecolor': '#4a5568'},
+            'yaxis': {'gridcolor': '#4a5568', 'linecolor': '#4a5568'}
+        }
+    else:
+        return {
+            'template': 'plotly_white',
+            'paper_bgcolor': '#ffffff',
+            'plot_bgcolor': '#ffffff',
+            'font': {'color': '#262730'},
+            'xaxis': {'gridcolor': '#e0e0e0', 'linecolor': '#e0e0e0'},
+            'yaxis': {'gridcolor': '#e0e0e0', 'linecolor': '#e0e0e0'}
+        }
+
+def apply_plot_theme(fig, theme="light"):
+    """Apply theme to a plotly figure."""
+    theme_config = get_plot_theme(theme)
+    fig.update_layout(
+        template=theme_config['template'],
+        paper_bgcolor=theme_config['paper_bgcolor'],
+        plot_bgcolor=theme_config['plot_bgcolor'],
+        font=theme_config['font'],
+        xaxis=theme_config['xaxis'],
+        yaxis=theme_config['yaxis']
+    )
+    return fig
 
 if __name__ == "__main__":
     main() 

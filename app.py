@@ -87,33 +87,233 @@ st.set_page_config(
     page_title="ML Model Explorer",
     page_icon="🤖",
     layout="wide",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="expanded",
+    menu_items={
+        'Get Help': 'https://github.com/player0n3/ml_model_explorer',
+        'Report a bug': 'https://github.com/player0n3/ml_model_explorer/issues',
+        'About': '# ML Model Explorer\nA comprehensive tool for training and evaluating machine learning models.'
+    }
 )
 
 # Custom CSS
 st.markdown("""
 <style>
+    /* Main Header */
     .main-header {
-        font-size: 3rem;
-        color: #1f77b4;
+        font-size: 3.5rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
         text-align: center;
         margin-bottom: 2rem;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
     }
+    
+    /* Sidebar Styling */
+    .css-1d391kg {
+        background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
+    }
+    
+    /* Metric Cards */
     .metric-card {
-        background-color: #f0f2f6;
-        padding: 1rem;
-        border-radius: 0.5rem;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 1.5rem;
+        border-radius: 1rem;
         margin: 0.5rem 0;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        border: none;
+        transition: transform 0.3s ease;
     }
+    
+    .metric-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+    
+    /* Model Cards */
     .model-card {
+        background: white;
         border: 2px solid #e0e0e0;
-        border-radius: 0.5rem;
-        padding: 1rem;
-        margin: 0.5rem 0;
+        border-radius: 1rem;
+        padding: 1.5rem;
+        margin: 1rem 0;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        transition: all 0.3s ease;
     }
+    
+    .model-card:hover {
+        border-color: #667eea;
+        box-shadow: 0 4px 20px rgba(102, 126, 234, 0.15);
+    }
+    
     .best-model {
         border-color: #28a745;
-        background-color: #d4edda;
+        background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+        box-shadow: 0 4px 20px rgba(40, 167, 69, 0.2);
+    }
+    
+    /* Tabs Styling */
+    .stTabs [data-baseweb="tab-list"] {
+        gap: 8px;
+        background: #f8f9fa;
+        border-radius: 0.5rem;
+        padding: 0.5rem;
+    }
+    
+    .stTabs [data-baseweb="tab"] {
+        border-radius: 0.5rem;
+        color: #6c757d;
+        background: transparent;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        transition: all 0.3s ease;
+    }
+    
+    .stTabs [aria-selected="true"] {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        box-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
+    }
+    
+    /* Buttons */
+    .stButton > button {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        border-radius: 0.5rem;
+        padding: 0.5rem 1.5rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 10px rgba(102, 126, 234, 0.2);
+    }
+    
+    .stButton > button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    }
+    
+    /* Success Messages */
+    .stSuccess {
+        background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+        border: 1px solid #28a745;
+        border-radius: 0.5rem;
+        padding: 1rem;
+        color: #155724;
+    }
+    
+    /* Warning Messages */
+    .stWarning {
+        background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+        border: 1px solid #ffc107;
+        border-radius: 0.5rem;
+        padding: 1rem;
+        color: #856404;
+    }
+    
+    /* Error Messages */
+    .stError {
+        background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+        border: 1px solid #dc3545;
+        border-radius: 0.5rem;
+        padding: 1rem;
+        color: #721c24;
+    }
+    
+    /* Info Messages */
+    .stInfo {
+        background: linear-gradient(135deg, #d1ecf1 0%, #bee5eb 100%);
+        border: 1px solid #17a2b8;
+        border-radius: 0.5rem;
+        padding: 1rem;
+        color: #0c5460;
+    }
+    
+    /* Dataframe Styling */
+    .dataframe {
+        border-radius: 0.5rem;
+        overflow: hidden;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    /* Progress Bar */
+    .stProgress > div > div > div {
+        background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    }
+    
+    /* File Uploader */
+    .stFileUploader > div {
+        border: 2px dashed #667eea;
+        border-radius: 0.5rem;
+        background: #f8f9fa;
+        transition: all 0.3s ease;
+    }
+    
+    .stFileUploader > div:hover {
+        border-color: #764ba2;
+        background: #f0f2ff;
+    }
+    
+    /* Selectbox */
+    .stSelectbox > div > div {
+        border-radius: 0.5rem;
+        border: 1px solid #e0e0e0;
+    }
+    
+    /* Multiselect */
+    .stMultiSelect > div > div {
+        border-radius: 0.5rem;
+        border: 1px solid #e0e0e0;
+    }
+    
+    /* Slider */
+    .stSlider > div > div > div {
+        background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    }
+    
+    /* Checkbox */
+    .stCheckbox > div > div {
+        border-radius: 0.25rem;
+    }
+    
+    /* Text Input */
+    .stTextInput > div > div > input {
+        border-radius: 0.5rem;
+        border: 1px solid #e0e0e0;
+    }
+    
+    /* Custom Background */
+    .main .block-container {
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        padding: 2rem;
+        border-radius: 1rem;
+        margin: 1rem;
+    }
+    
+    /* Hide Streamlit Default Elements */
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    header {visibility: hidden;}
+    
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+        width: 8px;
+    }
+    
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 4px;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 4px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
     }
 </style>
 """, unsafe_allow_html=True)
@@ -131,12 +331,27 @@ if 'feature_importance' not in st.session_state:
 def main():
     """Main function for the ML Model Explorer app."""
     
-    # Header
+    # Header with enhanced styling
     st.markdown('<h1 class="main-header">🤖 ML Model Explorer</h1>', unsafe_allow_html=True)
+    
+    # Add subtitle
+    st.markdown("""
+    <div style="text-align: center; margin-bottom: 2rem;">
+        <p style="font-size: 1.2rem; color: #6c757d; font-style: italic;">
+            Comprehensive Machine Learning Training & Evaluation Platform
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+    
     st.markdown("---")
     
-    # Sidebar
-    st.sidebar.header("📁 Data Upload")
+    # Sidebar with enhanced styling
+    st.sidebar.markdown("""
+    <div style="text-align: center; padding: 1rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 1rem; margin-bottom: 1rem;">
+        <h3 style="color: white; margin: 0;">📁 Data Upload</h3>
+    </div>
+    """, unsafe_allow_html=True)
+    
     uploaded_file = st.sidebar.file_uploader(
         "Choose a CSV or Excel file",
         type=['csv', 'xlsx', 'xls'],
@@ -152,20 +367,55 @@ def main():
                 df = pd.read_excel(uploaded_file)
             
             st.session_state.data = df
-            st.success(f"✅ Successfully loaded: {uploaded_file.name}")
             
-            # Show basic info
+            # Enhanced success message
+            st.markdown("""
+            <div style="background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%); 
+                        border: 1px solid #28a745; border-radius: 1rem; padding: 1.5rem; 
+                        text-align: center; margin: 1rem 0;">
+                <h4 style="color: #155724; margin: 0;">✅ Successfully Loaded!</h4>
+                <p style="color: #155724; margin: 0.5rem 0 0 0;">{}</p>
+            </div>
+            """.format(uploaded_file.name), unsafe_allow_html=True)
+            
+            # Enhanced metrics display
+            st.markdown("### 📊 Dataset Overview")
             col1, col2, col3, col4 = st.columns(4)
-            with col1:
-                st.metric("Rows", len(df))
-            with col2:
-                st.metric("Columns", len(df.columns))
-            with col3:
-                st.metric("Memory Usage", f"{df.memory_usage(deep=True).sum() / 1024:.1f} KB")
-            with col4:
-                st.metric("Missing Values", df.isnull().sum().sum())
             
-            # Main tabs
+            with col1:
+                st.markdown("""
+                <div class="metric-card">
+                    <h3 style="margin: 0; font-size: 2rem;">{}</h3>
+                    <p style="margin: 0; opacity: 0.9;">Rows</p>
+                </div>
+                """.format(len(df)), unsafe_allow_html=True)
+            
+            with col2:
+                st.markdown("""
+                <div class="metric-card">
+                    <h3 style="margin: 0; font-size: 2rem;">{}</h3>
+                    <p style="margin: 0; opacity: 0.9;">Columns</p>
+                </div>
+                """.format(len(df.columns)), unsafe_allow_html=True)
+            
+            with col3:
+                st.markdown("""
+                <div class="metric-card">
+                    <h3 style="margin: 0; font-size: 2rem;">{:.1f} KB</h3>
+                    <p style="margin: 0; opacity: 0.9;">Memory Usage</p>
+                </div>
+                """.format(df.memory_usage(deep=True).sum() / 1024), unsafe_allow_html=True)
+            
+            with col4:
+                st.markdown("""
+                <div class="metric-card">
+                    <h3 style="margin: 0; font-size: 2rem;">{}</h3>
+                    <p style="margin: 0; opacity: 0.9;">Missing Values</p>
+                </div>
+                """.format(df.isnull().sum().sum()), unsafe_allow_html=True)
+            
+            # Main tabs with enhanced styling
+            st.markdown("### 🚀 Analysis Tools")
             tab1, tab2, tab3, tab4, tab5 = st.tabs([
                 "📊 Data Exploration", 
                 "🔧 Data Preprocessing", 
@@ -190,50 +440,83 @@ def main():
                 show_model_management()
                 
         except Exception as e:
-            st.error(f"❌ Error loading file: {str(e)}")
+            st.markdown("""
+            <div style="background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%); 
+                        border: 1px solid #dc3545; border-radius: 1rem; padding: 1.5rem; 
+                        text-align: center; margin: 1rem 0;">
+                <h4 style="color: #721c24; margin: 0;">❌ Error Loading File</h4>
+                <p style="color: #721c24; margin: 0.5rem 0 0 0;">{}</p>
+            </div>
+            """.format(str(e)), unsafe_allow_html=True)
             st.info("Please make sure your file is a valid CSV or Excel file.")
     
     else:
-        # Welcome message
-        st.info("👆 Please upload a dataset using the sidebar to get started!")
+        # Enhanced welcome message
+        st.markdown("""
+        <div style="background: linear-gradient(135deg, #d1ecf1 0%, #bee5eb 100%); 
+                    border: 1px solid #17a2b8; border-radius: 1rem; padding: 2rem; 
+                    text-align: center; margin: 2rem 0;">
+            <h3 style="color: #0c5460; margin: 0 0 1rem 0;">👆 Get Started</h3>
+            <p style="color: #0c5460; margin: 0; font-size: 1.1rem;">
+                Please upload a dataset using the sidebar to begin your ML journey!
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
         
-        # Show features
-        st.subheader("🚀 Features")
+        # Enhanced features showcase
+        st.markdown("### 🚀 Features")
+        
         col1, col2 = st.columns(2)
         
         with col1:
             st.markdown("""
-            **📊 Data Exploration**
-            - Statistical analysis
-            - Data visualization
-            - Correlation analysis
-            - Missing value analysis
-            """)
+            <div class="model-card">
+                <h4 style="color: #667eea; margin-bottom: 1rem;">📊 Data Exploration</h4>
+                <ul style="color: #6c757d; margin: 0;">
+                    <li>Statistical analysis</li>
+                    <li>Data visualization</li>
+                    <li>Correlation analysis</li>
+                    <li>Missing value analysis</li>
+                </ul>
+            </div>
+            """, unsafe_allow_html=True)
             
             st.markdown("""
-            **🔧 Data Preprocessing**
-            - Feature scaling
-            - Encoding categorical variables
-            - Handling missing values
-            - Feature selection
-            """)
+            <div class="model-card">
+                <h4 style="color: #667eea; margin-bottom: 1rem;">🔧 Data Preprocessing</h4>
+                <ul style="color: #6c757d; margin: 0;">
+                    <li>Feature scaling</li>
+                    <li>Encoding categorical variables</li>
+                    <li>Handling missing values</li>
+                    <li>Feature selection</li>
+                </ul>
+            </div>
+            """, unsafe_allow_html=True)
         
         with col2:
             st.markdown("""
-            **🤖 Model Training**
-            - Multiple ML algorithms
-            - Hyperparameter tuning
-            - Cross-validation
-            - Model comparison
-            """)
+            <div class="model-card">
+                <h4 style="color: #667eea; margin-bottom: 1rem;">🤖 Model Training</h4>
+                <ul style="color: #6c757d; margin: 0;">
+                    <li>Multiple ML algorithms</li>
+                    <li>Hyperparameter tuning</li>
+                    <li>Cross-validation</li>
+                    <li>Model comparison</li>
+                </ul>
+            </div>
+            """, unsafe_allow_html=True)
             
             st.markdown("""
-            **📈 Model Evaluation**
-            - Performance metrics
-            - Visualization
-            - Feature importance
-            - Model interpretation
-            """)
+            <div class="model-card">
+                <h4 style="color: #667eea; margin-bottom: 1rem;">📈 Model Evaluation</h4>
+                <ul style="color: #6c757d; margin: 0;">
+                    <li>Performance metrics</li>
+                    <li>Visualization</li>
+                    <li>Feature importance</li>
+                    <li>Model interpretation</li>
+                </ul>
+            </div>
+            """, unsafe_allow_html=True)
 
 def show_data_exploration(df):
     """Display data exploration features."""
